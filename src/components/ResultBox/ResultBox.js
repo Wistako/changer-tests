@@ -12,11 +12,12 @@ const ResultBox = ({ from, to, amount }) => {
     if(from === 'PLN' && to === 'USD') return convertPLNToUSD(amount);
     return formatAmountInCurrency(amount, from);
   }, [from, to, amount]);
-
+  
   const formattedAmount = useMemo(() => formatAmountInCurrency(amount, from), [amount, from]);
-
+  
+  if(amount < 0) return <div className={styles.result} data-testId="text-output">Wrong value...</div>;
   return (
-    <div className={styles.result}>
+    <div className={styles.result} data-testId="text-output">
       {formattedAmount} = {convertedAmount}
     </div>
   );
